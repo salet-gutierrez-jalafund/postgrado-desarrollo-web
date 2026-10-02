@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedro Roda - CV & Laboratorio JS</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+ 
+    <!-- ===================================================================
+         BARRA SUPERIOR DE HERRAMIENTAS / ACTIVIDADES
+         =================================================================== -->
+    <div class="top-bar">
+        <button id="btn-tema" class="btn">Cambiar Tema</button>
+        <button id="btn-rastreador" class="btn">Clics en la clase (Closure: 0)</button>
+    </div>
+ 
+    <!-- ===================================================================
+         HEADER / DATOS PERSONALES
+         =================================================================== -->
+    <header>
+        <div class="avatar-container">
+            <div id="avatar" class="avatar-box" title="Pasa el raton por encima">
+                PR
+            </div>
+        </div>
+ 
+        <h1>Pedro Ariel Andres Roda Macias</h1>
+        <p class="job-title">Ingeniero en Sistemas y Tech Lead</p>
+ 
+        <ul class="contact-list">
+            <li>Santa Cruz, Bolivia</li>
+            <li>+(591) 78522790</li>
+            <li><a href="mailto:lol2309lo@gmail.com">lol2309lol@gmail.com</a></li>
+            <li><a href="https://www.linkedin.com/in/pedroroda91" target="_blank" rel="noopener">linkedin.com/in/pedroroda91</a></li>
+            <li><a href="https://github.com/loquendo2309" target="_blank" rel="noopener">github.com/loquendo2309</a></li>
+        </ul>
+ 
+        <div style="margin-top: 1rem;">
+            <button id="btn-contacto" class="btn btn-primary">Contactar</button>
+            <p id="mensaje-contacto" class="feedback-msg hidden"></p>
+        </div>
+    </header>
+ 
+    <main>
+        <!-- ===============================================================
+             SECCION 1: DEMOSTRACION DE LA PILA DE EJECUCION (CALL STACK)
+             =============================================================== -->
+        <section class="card-section">
+            <h2>Clase 4: Demostracion de la Pila de Ejecucion (Call Stack LIFO)</h2>
+            <p class="section-desc">
+                Ejecuta el flujo <code>empezarDia() -&gt; bañarse() -&gt; cepillarDientes()</code> y observa el orden de entrada (push) y salida (pop).
+            </p>
+            <div class="actions-row">
+                <button id="btn-callstack" class="btn">Simular Call Stack</button>
+                <button id="btn-clear-terminal" class="btn btn-secondary">Limpiar Terminal</button>
+            </div>
+            <pre id="terminal-callstack" class="code-terminal">Presiona el boton para observar la pila de ejecucion...</pre>
+        </section>
+ 
+        <!-- ===============================================================
+             SECCION 2: HABILIDADES TECNICAS
+             =============================================================== -->
+        <section id="professional-summary" class="card-section">
+            <h2>Technical Skills & Analisis con Array Methods</h2>
+            <ul id="skills-list" class="skills-grid">
+                <li><strong>Backend Development:</strong> .NET, Node.js, Clean Architecture</li>
+                <li><strong>Frontend Development:</strong> JavaScript moderno, HTML5, CSS3</li>
+                <li><strong>Database Management:</strong> PostgreSQL, SQL Server, MongoDB</li>
+            </ul>
+        </section>
+ 
+        <!-- ===============================================================
+             SECCION 3: PROYECTOS, ASINCRONIA, FILTER Y EVENT DELEGATION
+             =============================================================== -->
+        <section class="card-section">
+            <h2>Portafolio de Proyectos (Clase 5: Metodos Funcionales y Asincronia)</h2>
+            <p class="section-desc">
+                Filtra el "Source of Truth" en memoria con <code>.filter()</code> o carga datos asincronos con <code>fetch()</code> y manejo de errores <code>try/catch</code>.
+            </p>
+ 
+            <div class="filters-row">
+                <span class="label">Filtrar por area:</span>
+                <button class="btn btn-filter" data-filtro="Todos">Todos</button>
+                <button class="btn btn-filter" data-filtro="Backend">Backend</button>
+                <button class="btn btn-filter" data-filtro="Frontend">Frontend</button>
+                <button class="btn btn-filter" data-filtro="Database">Database</button>
+            </div>
+ 
+            <div class="actions-row" style="margin-top: 0.75rem;">
+                <button id="btn-cargar-exito" class="btn btn-accent">Cargar Datos Validos (Fetch)</button>
+                <button id="btn-cargar-error" class="btn btn-danger">Simular Error 404 (Throw Error)</button>
+            </div>
+ 
+            <div id="resumen-metrica" class="metric-badge">Cargando metricas...</div>
+ 
+            <div id="contenedor-proyectos" class="projects-grid">
+                <!-- Se inyecta dinamicamente desde script.js -->
+            </div>
+ 
+            <div id="detalle-seleccion" class="info-alert hidden"></div>
+        </section>
+ 
+        <!-- ===============================================================
+             SECCION 4: EXPERIENCIA LABORAL
+             =============================================================== -->
+        <section class="card-section">
+            <h2>Professional Experience</h2>
+            <ul class="experience-list">
+                <li>
+                    <strong>NEXOCORP</strong> (11.2024 - Presente)<br>
+                    <span>Liderazgo tecnico en arquitectura de soluciones e integracion continua.</span>
+                </li>
+            </ul>
+        </section>
+    </main>
+ 
+    <script src="script.js"></script>
+</body>
+</html>
