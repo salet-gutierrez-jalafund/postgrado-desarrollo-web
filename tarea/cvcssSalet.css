@@ -1,10 +1,12 @@
-/* Reset y Variables */
+/* ==========================================
+   RESET Y VARIABLES
+   ========================================== */
 :root {
-    --bg-color: #2d2d2d; /* Fondo gris oscuro */
-    --card-bg: #383838; /* Fondo de tarjetas un poco más claro */
+    --bg-color: #2d2d2d;
+    --card-bg: #383838;
     --text-main: #ffffff;
     --text-muted: #a0a0a0;
-    --accent-color: #a3e635; /* Verde lima brillante */
+    --accent-color: #a3e635;
     --border-color: #444;
 }
 
@@ -14,53 +16,132 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background-color: var(--bg-color);
     color: var(--text-main);
     line-height: 1.6;
-    padding: 2rem;
+    padding: 0;
+    overflow-x: hidden;
 }
 
+/* ==========================================
+   CONTENEDOR PRINCIPAL
+   ========================================== */
 .container {
     max-width: 900px;
     margin: 0 auto;
+    padding: 3rem 2rem 2rem;
 }
 
-/* Header */
+/* ==========================================
+   HEADER FULL WIDTH
+   ========================================== */
 header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: rgba(45, 45, 45, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    z-index: 100;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.2rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 2rem;
-    margin-bottom: 3rem;
-    border-bottom: 1px solid var(--border-color);
+    transition: padding 0.3s ease;
+}
+
+header.scrolled {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    border-bottom-color: var(--accent-color);
+    background-color: rgba(45, 45, 45, 0.98);
+}
+
+header.scrolled .header-inner {
+    padding: 0.8rem 2rem;
 }
 
 .logo {
     font-weight: 700;
     font-size: 1.1rem;
     color: var(--text-muted);
+    cursor: pointer;
+    transition: color 0.3s, transform 0.3s;
+    user-select: none;
+}
+
+.logo:hover {
+    color: var(--accent-color);
+    transform: scale(1.05);
 }
 
 header nav ul {
     display: flex;
     list-style: none;
-    gap: 1.5rem;
+    gap: 2rem;
 }
 
 header nav a {
     text-decoration: none;
     color: var(--text-muted);
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     transition: color 0.3s;
+    position: relative;
+    padding-bottom: 4px;
 }
 
-header nav a:hover, header nav a.active {
+header nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+header nav a:hover::after,
+header nav a.active::after {
+    width: 100%;
+}
+
+header nav a:hover,
+header nav a.active {
     color: var(--accent-color);
 }
 
-/* Hero Section */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text-main);
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: color 0.3s, transform 0.3s;
+    line-height: 1;
+}
+
+.menu-toggle:hover {
+    color: var(--accent-color);
+    transform: scale(1.1);
+}
+
+/* ==========================================
+   HERO SECTION
+   ========================================== */
 .hero {
     display: flex;
     align-items: center;
@@ -70,23 +151,30 @@ header nav a:hover, header nav a.active {
 }
 
 .hero-text h1 {
-    font-size: 3.5rem;
+    font-size: 3rem;
     font-weight: 400;
     line-height: 1.1;
     letter-spacing: -0.02em;
     max-width: 600px;
+    margin-bottom: 0.5rem;
+    min-height: 3.3rem;
+}
+
+.hero-text .job-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--accent-color);
 }
 
 .hero-image {
     flex-shrink: 0;
 }
 
-/* Avatar (Círculo Verde) */
 .avatar-box {
     width: 250px;
     height: 250px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #a3e635, #65a30d); /* Degradado verde */
+    background: linear-gradient(135deg, #a3e635, #65a30d);
     color: #fff;
     display: flex;
     align-items: center;
@@ -94,15 +182,18 @@ header nav a:hover, header nav a.active {
     font-size: 3rem;
     font-weight: 700;
     box-shadow: 0 0 40px rgba(163, 230, 53, 0.3);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
+    will-change: transform;
 }
 
 .avatar-box:hover {
-    transform: scale(1.05);
+    box-shadow: 0 0 60px rgba(163, 230, 53, 0.5);
 }
 
-/* Secciones Generales */
+/* ==========================================
+   SECCIONES GENERALES
+   ========================================== */
 .section {
     margin-bottom: 3rem;
 }
@@ -119,7 +210,9 @@ header nav a:hover, header nav a.active {
     margin-bottom: 1.5rem;
 }
 
-/* Grid de Tarjetas (Skills y Contacts) */
+/* ==========================================
+   GRID DE TARJETAS
+   ========================================== */
 .grid-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -132,12 +225,13 @@ header nav a:hover, header nav a.active {
     border: 1px solid var(--border-color);
     border-radius: 15px;
     padding: 1.5rem;
-    transition: border-color 0.3s, transform 0.2s;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
 .card:hover {
     border-color: var(--accent-color);
-    transform: translateY(-2px);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(163, 230, 53, 0.15);
 }
 
 .card h3 {
@@ -151,7 +245,112 @@ header nav a:hover, header nav a.active {
     color: var(--text-muted);
 }
 
-/* Contactos (Botones grandes) */
+/* ==========================================
+   FILTROS Y BOTONES
+   ========================================== */
+.filters-row,
+.actions-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+}
+
+.btn-filter {
+    background-color: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.25s ease;
+}
+
+.btn-filter:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+.btn-filter.active {
+    background-color: var(--accent-color);
+    color: #2d2d2d;
+    border-color: var(--accent-color);
+}
+
+.btn-accent {
+    background-color: var(--accent-color);
+    color: #2d2d2d;
+    border: none;
+    padding: 0.7rem 1.3rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    box-shadow: 0 4px 15px rgba(163, 230, 53, 0.25);
+}
+
+.btn-accent:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(163, 230, 53, 0.4);
+    filter: brightness(1.05);
+}
+
+.btn-accent:active {
+    transform: translateY(0);
+}
+
+.metric-badge {
+    margin-top: 1rem;
+    font-weight: 600;
+    color: var(--accent-color);
+    font-size: 0.95rem;
+}
+
+/* ==========================================
+   ACTIVIDADES DEL DIPLOMADO
+   ========================================== */
+.activity-block {
+    background-color: rgba(163, 230, 53, 0.04);
+    border: 1px dashed var(--border-color);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.activity-block:hover {
+    border-color: var(--accent-color);
+    background-color: rgba(163, 230, 53, 0.06);
+}
+
+.activity-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+}
+
+.activity-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 1.2rem;
+}
+
+.activity-desc code {
+    background-color: rgba(163, 230, 53, 0.12);
+    color: var(--accent-color);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-family: 'Courier New', monospace;
+}
+
+/* ==========================================
+   CONTACTOS
+   ========================================== */
 .contact-card {
     text-align: center;
     text-decoration: none;
@@ -167,7 +366,60 @@ header nav a:hover, header nav a.active {
     color: var(--accent-color);
 }
 
-/* Línea de Tiempo (Experience) */
+/* ==========================================
+   TARJETAS DE REPOS GITHUB
+   ========================================== */
+.repo-card {
+    text-decoration: none;
+    color: var(--text-main);
+    display: block;
+}
+
+.repo-card h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--accent-color);
+    word-break: break-word;
+}
+
+.repo-card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    min-height: 2.5rem;
+}
+
+.repo-meta {
+    display: flex;
+    gap: 0.8rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.repo-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.loading-msg,
+.error-msg {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 2rem 1rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.error-msg {
+    color: #f87171;
+}
+
+/* ==========================================
+   TIMELINE (EXPERIENCE)
+   ========================================== */
 .timeline {
     position: relative;
     margin-top: 2rem;
@@ -180,11 +432,10 @@ header nav a:hover, header nav a.active {
     position: relative;
 }
 
-/* Línea vertical conectora */
 .timeline-item::before {
     content: '';
     position: absolute;
-    left: 27px; /* Centro del círculo */
+    left: 27px;
     top: 50px;
     bottom: -30px;
     width: 2px;
@@ -208,6 +459,12 @@ header nav a:hover, header nav a.active {
     flex-shrink: 0;
     z-index: 1;
     font-size: 0.9rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.timeline-item:hover .timeline-dot {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(163, 230, 53, 0.5);
 }
 
 .timeline-content {
@@ -216,6 +473,12 @@ header nav a:hover, header nav a.active {
     border-radius: 15px;
     padding: 1.5rem;
     flex-grow: 1;
+    transition: border-color 0.3s, transform 0.3s;
+}
+
+.timeline-item:hover .timeline-content {
+    border-color: var(--accent-color);
+    transform: translateX(5px);
 }
 
 .timeline-content h3 {
@@ -235,31 +498,102 @@ header nav a:hover, header nav a.active {
     color: var(--text-muted);
 }
 
-/* Responsive */
+/* ==========================================
+   FOOTER
+   ========================================== */
+.footer {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
 @media (max-width: 768px) {
+    .header-inner {
+        flex-wrap: wrap;
+        padding: 1rem 1.2rem;
+        position: relative;
+    }
+
+    header.scrolled .header-inner {
+        padding: 0.7rem 1.2rem;
+    }
+
+    .menu-toggle {
+        display: block;
+        position: absolute;
+        right: 1.2rem;
+        top: 1rem;
+    }
+
+    header nav {
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+    }
+
+    header nav.open {
+        max-height: 400px;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1rem 0;
+        text-align: center;
+    }
+
+    .container {
+        padding: 2rem 1rem 1rem;
+    }
+
     .hero {
         flex-direction: column-reverse;
         text-align: center;
     }
-    
+
     .hero-text h1 {
-        font-size: 2.5rem;
+        font-size: 2rem;
+        min-height: 2.2rem;
     }
-    
+
     .avatar-box {
         width: 180px;
         height: 180px;
         font-size: 2rem;
     }
-    
-    header {
-        flex-direction: column;
+
+    .timeline-item {
         gap: 1rem;
     }
-    
-    header nav ul {
-        gap: 1rem;
-        flex-wrap: wrap;
-        justify-content: center;
+
+    .timeline-dot {
+        width: 50px;
+        height: 50px;
+        font-size: 0.8rem;
+    }
+
+    .timeline-item::before {
+        left: 24px;
+    }
+
+    .activity-block {
+        padding: 1.2rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 }

@@ -3,24 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salet Gutierrez - CV</title>
-    <!-- Enlace a tu archivo CSS -->
+    <meta name="description" content="Portafolio profesional de Salet Yasmin Gutierrez Nava - Ingeniera de Software Comercial y Tech Lead">
+    <title>Salet Gutierrez - Portafolio</title>
     <link rel="stylesheet" href="cvcssSalet.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Header / Nav -->
-        <header>
+
+    <!-- ==========================================
+         HEADER FULL WIDTH (de margen a margen)
+         ========================================== -->
+    <header>
+        <div class="header-inner">
             <div class="logo">&gt; Salet Gutierrez &lt;</div>
+            <button class="menu-toggle" aria-label="Abrir menú">☰</button>
             <nav>
                 <ul>
                     <li><a href="#about" class="active">About me</a></li>
                     <li><a href="#skills">Skills</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#diplomado">Diplomado</a></li>
                     <li><a href="#contacts">Contacts</a></li>
                 </ul>
             </nav>
-        </header>
+        </div>
+    </header>
 
+    <div class="container">
         <!-- Hero Section -->
         <section class="hero">
             <div class="hero-text">
@@ -40,22 +48,92 @@
             <p class="subtitle">Apasionada por la tecnología y el liderazgo. Con experiencia en el desarrollo de software comercial, me especializo en crear soluciones escalables y en guiar equipos hacia el éxito, combinando habilidades técnicas con una visión estratégica de negocio.</p>
         </section>
 
-        <!-- Skills -->
+        <!-- ==========================================
+             SKILLS CON FILTROS (PROGRAMACIÓN FUNCIONAL)
+             ========================================== -->
         <section id="skills" class="section">
-            <h2>Skills & Technologies</h2>
-            <div class="grid-cards">
-                <div class="card">
-                    <h3>Backend</h3>
-                    <p>Node.js, Typescript, C#, Java, AWS</p>
+            <h2>Skills &amp; Technologies</h2>
+            <p class="subtitle">Filtra mis habilidades por área técnica usando programación funcional.</p>
+
+            <div class="filters-row">
+                <button class="btn-filter active" data-tech="todas">Todas</button>
+                <button class="btn-filter" data-tech="backend">Backend</button>
+                <button class="btn-filter" data-tech="frontend">Frontend</button>
+                <button class="btn-filter" data-tech="cloud">Cloud</button>
+                <button class="btn-filter" data-tech="soft">Soft Skills</button>
+            </div>
+
+            <div id="skills-container" class="grid-cards"></div>
+
+            <p id="skills-metrica" class="metric-badge"></p>
+        </section>
+
+        <!-- Experience -->
+        <section id="experience" class="section">
+            <h2>Experience &amp; Projects</h2>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot">2024</div>
+                    <div class="timeline-content">
+                        <h3>Tech Lead en NEXOCORP</h3>
+                        <span class="date">11.2024 - Presente</span>
+                        <p>Liderando la migración a microservicios y optimizando el rendimiento del sistema en un 40%.</p>
+                    </div>
                 </div>
-                <div class="card">
-                    <h3>Frontend</h3>
-                    <p>React, Typescript, HTML5, CSS3</p>
+                <div class="timeline-item">
+                    <div class="timeline-dot">2023</div>
+                    <div class="timeline-content">
+                        <h3>Proyecto: E-commerce Platform</h3>
+                        <span class="date">2023</span>
+                        <p>Desarrollo de una plataforma de comercio electrónico con React, Node.js y PostgreSQL. Implementación de pasarela de pagos y panel de administración.</p>
+                    </div>
                 </div>
-                <div class="card">
-                    <h3>Skills</h3>
-                    <p>Liderazgo, Scrum, Arquitectura Cloud</p>
+                <div class="timeline-item">
+                    <div class="timeline-dot">2021</div>
+                    <div class="timeline-content">
+                        <h3>Senior Backend Developer</h3>
+                        <span class="date">2021 - 2024</span>
+                        <p>Desarrollo de APIs RESTful y gestión de bases de datos PostgreSQL para clientes internacionales.</p>
+                    </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             ACTIVIDADES DEL DIPLOMADO
+             (Closures + Asincronía/Fetch)
+             ========================================== -->
+        <section id="diplomado" class="section">
+            <h2>📚 Actividades del Diplomado</h2>
+            <p class="subtitle">Conceptos avanzados de JavaScript aplicados a mi día a día como Tech Lead.</p>
+
+            <!-- ==========================================
+                 ACTIVIDAD 1: CLOSURES
+                 ========================================== -->
+            <div class="activity-block">
+                <h3 class="activity-title">🔒 Actividad 1: Closures en acción</h3>
+                <p class="activity-desc">
+                    Contador privado de proyectos liderados este año. La variable <code>total</code> vive dentro de un closure, solo accesible desde la función interna.
+                </p>
+                <button id="btn-proyectos" class="btn-accent">
+                    Proyectos liderados este año: 0
+                </button>
+            </div>
+
+            <!-- ==========================================
+                 ACTIVIDAD 2: ASINCRONÍA + FETCH
+                 ========================================== -->
+            <div class="activity-block">
+                <h3 class="activity-title">⚡ Actividad 2: Asincronía con fetch + async/await</h3>
+                <p class="activity-desc">
+                    Cargando repos reales desde la API de GitHub con manejo de errores con <code>try/catch</code> y validación de respuesta HTTP.
+                </p>
+                <button id="btn-github" class="btn-accent">
+                    🔄 Cargar mis repos de GitHub
+                </button>
+
+                <div id="repos-grid" class="grid-cards"></div>
             </div>
         </section>
 
@@ -64,10 +142,17 @@
             <h2>Contacts</h2>
             <div class="grid-cards contact-grid">
                 <a href="mailto:saletyasmin08@gmail.com" class="card contact-card">Email</a>
-                <a href="https://www.linkedin.com/in/salet-yasmin-gutierrez-nava-88732231b/" target="_blank" class="card contact-card">LinkedIn</a>
-                <a href="https://github.com/salet-gutierrez-jalafund" target="_blank" class="card contact-card">GitHub</a>
+                <a href="https://www.linkedin.com/in/salet-yasmin-gutierrez-nava-88732231b/" target="_blank" rel="noopener noreferrer" class="card contact-card">LinkedIn</a>
+                <a href="https://github.com/salet-gutierrez-jalafund" target="_blank" rel="noopener noreferrer" class="card contact-card">GitHub</a>
             </div>
         </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© <span id="year"></span> Salet Yasmin Gutierrez Nava · Hecho con 💚</p>
+        </footer>
     </div>
+    
+    <script src="script.js"></script>
 </body>
 </html>
