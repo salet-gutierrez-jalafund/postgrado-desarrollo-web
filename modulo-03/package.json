@@ -1,9 +1,9 @@
 {
-  "name": "manager-expense-api",
+  "name": "modulo-03",
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "nodemon src/app.js",
+    "dev": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -18,12 +18,12 @@
     "mongoose": "^9.11.4",
     "mysql2": "^3.24.6",
     "sequelize": "^6.37.8",
-    "swagger-jsdoc": "^6.3.0",
+    "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "cross-env": "^10.1.0",
     "morgan": "^1.12.1",
-    "nodemon": "^3.1.14"
+    "nodemon": "^3.1.11"
   }
 }
