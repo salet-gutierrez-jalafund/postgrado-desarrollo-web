@@ -2,12 +2,20 @@ import TransactionEntity from "../../domain/entities/transaction.entity.js";
 import AuditEntity from "../../domain/entities/audit.entity.js";
 
 export default class TransactionService {
-    constructor(transactionRepository, currencyRepository, categoryRepository, budgetRepository = null, auditRepository = null) {
+    constructor(
+        transactionRepository,
+        currencyRepository,
+        categoryRepository,
+        budgetRepository = null,
+        auditRepository = null,
+        walletRepository = null
+    ) {
         this.transactionRepository = transactionRepository;
         this.currencyRepository = currencyRepository;
         this.categoryRepository = categoryRepository;
         this.budgetRepository = budgetRepository;
         this.auditRepository = auditRepository;
+        this.walletRepository = walletRepository;
     }
 
     async createTransaction(data) {
@@ -32,6 +40,22 @@ export default class TransactionService {
         const rateRecord = await this.currencyRepository.findByCodeAndDate(currencyCode, txDate);
         if (!rateRecord) {
             throw new Error(`Exchange rate not found for currency ${currencyCode} on date ${txDate}`);
+        }
+
+        if (data.walletId !== undefined && data.walletId !== null) {
+
+            if (!this.walletRepository) {
+                throw new Error("Wallet repository not configured");
+            }
+
+            const wallet = await this.walletRepository.findByIdAndUserId(
+                data.walletId,
+                data.userId
+            );
+
+            if (!wallet) {
+                throw new Error("Wallet not found or unauthorized");
+            }
         }
 
         const transaction = new TransactionEntity({
@@ -106,6 +130,22 @@ export default class TransactionService {
             throw new Error(`Exchange rate not found for currency ${currencyCode} on date ${txDate}`);
         }
 
+        if (data.walletId !== undefined && data.walletId !== null) {
+
+            if (!this.walletRepository) {
+                throw new Error("Wallet repository not configured");
+            }
+
+            const wallet = await this.walletRepository.findByIdAndUserId(
+                data.walletId,
+                userId
+            );
+
+            if (!wallet) {
+                throw new Error("Wallet not found or unauthorized");
+            }
+        }
+
         const updatedPayload = {
             ...data,
             amount,
@@ -114,7 +154,14 @@ export default class TransactionService {
             exchangeRate: rateRecord.exchangeRate,
             exchangeRateDate: rateRecord.date,
             currencyRateId: String(rateRecord._id || rateRecord.id),
-            convertedAmount: Number((amount * Number(rateRecord.exchangeRate)).toFixed(2))
+            convertedAmount: Number((amount * Number(rateRecord.exchangeRate)).toFixed(2)),
+            walletId: data.walletId !== undefined
+                ? data.walletId
+                : existing.walletId,
+
+            isPrivate: data.isPrivate !== undefined
+                ? Boolean(data.isPrivate)
+                : existing.isPrivate
         };
 
         const updated = await this.transactionRepository.update(id, updatedPayload);
@@ -153,5 +200,38 @@ export default class TransactionService {
 
         return { message: "Transaction deleted successfully" };
     }
+
+    
+    async getPublicReceipt(id) {
+
+        const transaction = await this.transactionRepository.findById(id);
+
+        if (!transaction) {
+            const error = new Error("Transaction not found");
+            error.statusCode = 404;
+            throw error;
+        }
+
+        if (transaction.isPrivate) {
+            const error = new Error("This transaction is private");
+            error.statusCode = 403;
+            throw error;
+        }
+
+        // Devolver solamente los datos necesarios del comprobante
+        return {
+            id: transaction.id,
+            type: transaction.type,
+            amount: transaction.amount,
+            currency: transaction.currency,
+            convertedAmount: transaction.convertedAmount,
+            description: transaction.description,
+            date: transaction.date,
+            categoryId: transaction.categoryId,
+            walletId: transaction.walletId,
+            createdAt: transaction.createdAt
+        };
+    }
+
 }
 
