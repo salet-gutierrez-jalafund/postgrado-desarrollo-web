@@ -12,6 +12,7 @@ import categoryRoutes from './presentation/routes/category.routes.js';
 import transactionRoutes from './presentation/routes/transaction.routes.js';
 import budgetRoutes from './presentation/routes/budget.routes.js';
 import reportRoutes from './presentation/routes/report.routes.js';
+import walletRoutes from './presentation/routes/wallet.routes.js';
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use('/api/v1/categories', categoryRoutes);
 app.use('/api/v1/transactions', transactionRoutes);
 app.use('/api/v1/budgets', budgetRoutes);
 app.use('/api/v1/reports', reportRoutes);
+app.use('/api/v1/wallets', walletRoutes);
 
 app.get('/api/v1/health', (req, res) => {
     res.status(200).json({ status: 'OK', message: 'API de Gestor de Gastos activa' });

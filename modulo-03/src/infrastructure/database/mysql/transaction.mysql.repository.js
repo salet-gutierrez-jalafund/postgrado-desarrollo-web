@@ -12,7 +12,9 @@ export const TransactionModel = sequelize.define("Transaction", {
     description: { type: DataTypes.STRING },
     date: { type: DataTypes.DATEONLY, allowNull: false },
     categoryId: { type: DataTypes.INTEGER, allowNull: false },
-    userId: { type: DataTypes.STRING, allowNull: false }
+    userId: { type: DataTypes.STRING, allowNull: false },
+    walletId: { type: DataTypes.INTEGER, allowNull: true},
+    isPrivate: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false }
 }, { timestamps: true });
 
 export default class TransactionMySQLRepository {
@@ -28,7 +30,9 @@ export default class TransactionMySQLRepository {
             description: txEntity.description,
             date: txEntity.date,
             categoryId: txEntity.categoryId,
-            userId: txEntity.userId
+            userId: txEntity.userId,
+            walletId: txEntity.walletId,
+            isPrivate: txEntity.isPrivate
         });
         return tx.toJSON();
     }
@@ -146,6 +150,28 @@ export default class TransactionMySQLRepository {
             group: ["currency", "exchangeRateDate", "exchangeRate", "currencyRateId"],
             order: [["exchangeRateDate", "DESC"]],
             raw: true
+        });
+    }
+
+    async findPublicReceipt(id) {
+        return await TransactionModel.findOne({
+            where: {
+                id,
+                isPrivate: false
+            },
+            attributes: [
+                "id",
+                "type",
+                "amount",
+                "currency",
+                "convertedAmount",
+                "description",
+                "date",
+                "categoryId",
+                "walletId",
+                "isPrivate",
+                "createdAt"
+            ]
         });
     }
 }
